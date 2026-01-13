@@ -1,6 +1,6 @@
 # 📦 Amazon Logistics Digital Twin: Network Optimization
 
-### 🚀 [View Live Interactive Map](### 🚀 [View Live Interactive Map](https://AnshulSilhare.github.io/Logistics-Network-Optimization/output/map.html)
+### 🚀 [View Live Interactive Map](https://AnshulSilhare.github.io/Logistics-Network-Optimization/output/map.html)
 *Dynamic geospatial analysis of the 5-node hub-and-spoke network. (Generated via Python/Folium)*
 
 ![Network Flow Animation](network-flow.gif)
