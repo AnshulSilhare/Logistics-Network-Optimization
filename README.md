@@ -10,6 +10,22 @@ This project engineers a **Digital Twin** of a high-volume logistics network to 
 
 Moving beyond static Excel modeling, I utilized **Python** to programmatically visualize supply chain flows, calculate geodesic distances, and stress-test a 5-node distribution strategy against real-world constraints.
 
+### 🚚 Service Level Validation (Transit Times)
+*Detailed breakdown of the "Ship-from-Hub" logic validating the <48hr delivery promise:*
+
+| City (Demand Node) | Optimized Hub Assignment | Transit Time |
+| :--- | :--- | :--- |
+| **New York, NY** | EWR4 – Robbinsville, NJ | **1 Day** |
+| **Los Angeles, CA** | ONT9 – Redlands, CA | **1 Day** |
+| **Chicago, IL** | SDF2 – Louisville, KY | **1-2 Days** |
+| **Dallas, TX** | DFW6 – Coppell, TX | **1 Day** |
+| **Houston, TX** | DFW6 – Coppell, TX | **2 Days** |
+| **Washington, DC** | EWR4 – Robbinsville, NJ | **1 Day** |
+| **Philadelphia, PA** | EWR4 – Robbinsville, NJ | **1 Day** |
+| **Miami, FL** | TPA2 – Lakeland, FL | **1 Day** |
+| **Atlanta, GA** | SDF2 – Louisville, KY | **2 Days** |
+| **Boston, MA** | EWR4 – Robbinsville, NJ | **2 Days** |
+
 ## 📊 Key Performance Indicators (KPIs)
 *Snapshot of the network performance upon final optimization:*
 
