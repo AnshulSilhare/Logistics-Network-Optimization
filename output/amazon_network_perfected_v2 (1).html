@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_607a6620439973f8460663a7718a2221 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-ant-path@1.1.2/dist/leaflet-ant-path.min.js"></script>
+</head>
+<body>
+    
+    
+     <h3 align="center" style="font-size:22px; font-family:sans-serif; color:#333;">
+     <b>Amazon Logistics Network:</b> Optimized Flow & Coverage Analysis
+     </h3>
+             
+    
+<div style="position: fixed; bottom: 30px; right: 30px; width: 220px; z-index:9999; background: rgba(255,255,255,0.9);
+            border-radius: 8px; padding: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); font-family: sans-serif;">
+    <h4 style="margin:0 0 10px 0; text-align:center; border-bottom: 2px solid #333; padding-bottom:5px;">Network Snapshot</h4>
+    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;"><span>Active Nodes:</span><b>15</b></div>
+    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;"><span>Dist Centres:</span><b>5</b></div>
+    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;"><span>Avg Delivery:</span><b>249 km</b></div>
+    <div style="margin-top: 10px; text-align:center; background:#dff0d8; color:#3c763d; padding:5px; border-radius:4px;">
+        <b>STATUS: HIGHLY OPTIMIZED</b>
+    </div>
+</div>
+    
+<div style="position: fixed; bottom: 30px; right: 30px; width: 220px; z-index:9999; background: rgba(255,255,255,0.9);
+            border-radius: 8px; padding: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); font-family: sans-serif;">
+    <h4 style="margin:0 0 10px 0; text-align:center; border-bottom: 2px solid #333; padding-bottom:5px;">Network Snapshot</h4>
+    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;"><span>Active Nodes:</span><b>15</b></div>
+    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;"><span>Dist Centres:</span><b>5</b></div>
+    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;"><span>Avg Delivery:</span><b>249 km</b></div>
+    <div style="margin-top: 10px; text-align:center; background:#dff0d8; color:#3c763d; padding:5px; border-radius:4px;">
+        <b>STATUS: HIGHLY OPTIMIZED</b>
+    </div>
+</div>
+    
+     <div style="position: fixed; bottom: 30px; left: 30px; width: 180px; z-index:9999; font-family: sans-serif;
+     background: rgba(255,255,255,0.9); border-radius: 8px; padding: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
+     <b>Regional Flow Legend</b><br>
+     <small><i>Animated paths indicate flow direction</i></small><br>
+     <i class="fa fa-industry" style="color:black"></i> Distribution Center<br>
+     <span style="color:#FF8C00;">&#9679;</span> SoCal Flow<br>
+     <span style="color:#DC143C;">&#9679;</span> Dallas Flow<br>
+     <span style="color:#228B22;">&#9679;</span> Midwest Flow<br>
+     <span style="color:#0000CD;">&#9679;</span> Northeast Flow<br>
+     <span style="color:#800080;">&#9679;</span> Southeast Flow<br>
+     </div>
+     
+    
+            <div class="folium-map" id="map_607a6620439973f8460663a7718a2221" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_607a6620439973f8460663a7718a2221 = L.map(
+                "map_607a6620439973f8460663a7718a2221",
+                {
+                    center: [37.0902, -95.7129],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 4,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_b9f1c51c06c16af412094ca485e15f1d = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_b9f1c51c06c16af412094ca485e15f1d.addTo(map_607a6620439973f8460663a7718a2221);
+        
+    
+            var feature_group_8e14527ca99b6e723f07cbaca2e13b90 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_5330c1e92d09a97b01732ca1f44d53df = L.marker(
+                [34.0633, -117.6509],
+                {
+}
+            ).addTo(feature_group_8e14527ca99b6e723f07cbaca2e13b90);
+        
+    
+            var icon_7486d8f1cb1b0895b6e83514fabc1a08 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "black",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_bfaa6f2bf252d5411a2db3be43e4cb36 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_404755a124bb51bdd725d8acf7f01243 = $(`<div id="html_404755a124bb51bdd725d8acf7f01243" style="width: 100.0%; height: 100.0%;"><b>DISTRIBUTION CENTER</b><br>ONT9 (SoCal)<br>Capacity: 300k Units</div>`)[0];
+                popup_bfaa6f2bf252d5411a2db3be43e4cb36.setContent(html_404755a124bb51bdd725d8acf7f01243);
+            
+        
+
+        marker_5330c1e92d09a97b01732ca1f44d53df.bindPopup(popup_bfaa6f2bf252d5411a2db3be43e4cb36)
+        ;
+
+        
+    
+    
+            marker_5330c1e92d09a97b01732ca1f44d53df.bindTooltip(
+                `<div>
+                     <b>DC: ONT9 (SoCal)</b><br>Cap: 300k
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_5330c1e92d09a97b01732ca1f44d53df.setIcon(icon_7486d8f1cb1b0895b6e83514fabc1a08);
+            
+    
+            var marker_cb0068d7e75046637bb12f4bd6674be1 = L.marker(
+                [32.9, -97.0],
+                {
+}
+            ).addTo(feature_group_8e14527ca99b6e723f07cbaca2e13b90);
+        
+    
+            var icon_de8b104d225359893863ed80ae17fb3d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "black",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d371944c5d986cd955cad13d77d0f728 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_32308bc121dd856a52412f6155e374ff = $(`<div id="html_32308bc121dd856a52412f6155e374ff" style="width: 100.0%; height: 100.0%;"><b>DISTRIBUTION CENTER</b><br>DFW6 (Dallas)<br>Capacity: 250k Units</div>`)[0];
+                popup_d371944c5d986cd955cad13d77d0f728.setContent(html_32308bc121dd856a52412f6155e374ff);
+            
+        
+
+        marker_cb0068d7e75046637bb12f4bd6674be1.bindPopup(popup_d371944c5d986cd955cad13d77d0f728)
+        ;
+
+        
+    
+    
+            marker_cb0068d7e75046637bb12f4bd6674be1.bindTooltip(
+                `<div>
+                     <b>DC: DFW6 (Dallas)</b><br>Cap: 250k
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_cb0068d7e75046637bb12f4bd6674be1.setIcon(icon_de8b104d225359893863ed80ae17fb3d);
+            
+    
+            var marker_6123be60f995608b4352d157a7a44723 = L.marker(
+                [38.2, -85.7],
+                {
+}
+            ).addTo(feature_group_8e14527ca99b6e723f07cbaca2e13b90);
+        
+    
+            var icon_70d3ebe86fe9c9c4f6e37973b9bfdd52 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "black",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_21b59285fdd3d86404717e5b9a63b376 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_3c1e430577dffe2e51eca2476da6b1ac = $(`<div id="html_3c1e430577dffe2e51eca2476da6b1ac" style="width: 100.0%; height: 100.0%;"><b>DISTRIBUTION CENTER</b><br>SDF2 (Louisville)<br>Capacity: 200k Units</div>`)[0];
+                popup_21b59285fdd3d86404717e5b9a63b376.setContent(html_3c1e430577dffe2e51eca2476da6b1ac);
+            
+        
+
+        marker_6123be60f995608b4352d157a7a44723.bindPopup(popup_21b59285fdd3d86404717e5b9a63b376)
+        ;
+
+        
+    
+    
+            marker_6123be60f995608b4352d157a7a44723.bindTooltip(
+                `<div>
+                     <b>DC: SDF2 (Louisville)</b><br>Cap: 200k
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_6123be60f995608b4352d157a7a44723.setIcon(icon_70d3ebe86fe9c9c4f6e37973b9bfdd52);
+            
+    
+            var marker_5d651efaf590cccdafd3dba882951df0 = L.marker(
+                [40.5, -74.5],
+                {
+}
+            ).addTo(feature_group_8e14527ca99b6e723f07cbaca2e13b90);
+        
+    
+            var icon_71b20158f8dd1ac45292d04dfeed66a8 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "black",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_150f013797a0642526a2e6a776263467 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_af101d85c7a314240f20ef83bb80f058 = $(`<div id="html_af101d85c7a314240f20ef83bb80f058" style="width: 100.0%; height: 100.0%;"><b>DISTRIBUTION CENTER</b><br>EWR4 (NJ/NY)<br>Capacity: 280k Units</div>`)[0];
+                popup_150f013797a0642526a2e6a776263467.setContent(html_af101d85c7a314240f20ef83bb80f058);
+            
+        
+
+        marker_5d651efaf590cccdafd3dba882951df0.bindPopup(popup_150f013797a0642526a2e6a776263467)
+        ;
+
+        
+    
+    
+            marker_5d651efaf590cccdafd3dba882951df0.bindTooltip(
+                `<div>
+                     <b>DC: EWR4 (NJ/NY)</b><br>Cap: 280k
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_5d651efaf590cccdafd3dba882951df0.setIcon(icon_71b20158f8dd1ac45292d04dfeed66a8);
+            
+    
+            var marker_c93db2ec3aa0efc925e3e70a1d53aff1 = L.marker(
+                [27.9, -82.4],
+                {
+}
+            ).addTo(feature_group_8e14527ca99b6e723f07cbaca2e13b90);
+        
+    
+            var icon_a001840ae414828d8a3b402cfc27e273 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "black",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c6b1fdb929232b573859cc83cb388fb8 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_fc4a0a9a3e62c8af9e06af9db0a8fe7c = $(`<div id="html_fc4a0a9a3e62c8af9e06af9db0a8fe7c" style="width: 100.0%; height: 100.0%;"><b>DISTRIBUTION CENTER</b><br>TPA2 (Tampa)<br>Capacity: 150k Units</div>`)[0];
+                popup_c6b1fdb929232b573859cc83cb388fb8.setContent(html_fc4a0a9a3e62c8af9e06af9db0a8fe7c);
+            
+        
+
+        marker_c93db2ec3aa0efc925e3e70a1d53aff1.bindPopup(popup_c6b1fdb929232b573859cc83cb388fb8)
+        ;
+
+        
+    
+    
+            marker_c93db2ec3aa0efc925e3e70a1d53aff1.bindTooltip(
+                `<div>
+                     <b>DC: TPA2 (Tampa)</b><br>Cap: 150k
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_c93db2ec3aa0efc925e3e70a1d53aff1.setIcon(icon_a001840ae414828d8a3b402cfc27e273);
+            
+    
+            feature_group_8e14527ca99b6e723f07cbaca2e13b90.addTo(map_607a6620439973f8460663a7718a2221);
+        
+    
+            var feature_group_b8e5005657f34d75a1531e88891a0740 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            ant_path_9c3fe3d71d7b297c19d5cb7ac7201959 = L.polyline.antPath(
+              [[34.0633, -117.6509], [34.0522, -118.2437]],
+              {
+  "stroke": true,
+  "color": "#FF8C00",
+  "weight": 3,
+  "opacity": 0.5,
+  "lineCap": "round",
+  "lineJoin": "round",
+  "dashArray": [
+15,
+30,
+],
+  "dashOffset": null,
+  "fill": false,
+  "fillColor": "#FF8C00",
+  "fillOpacity": 0.2,
+  "fillRule": "evenodd",
+  "bubblingMouseEvents": true,
+  "smoothFactor": 1.0,
+  "noClip": false,
+  "paused": false,
+  "reverse": false,
+  "hardwareAcceleration": false,
+  "delay": 800,
+  "pulseColor": "#FFFFFF",
+}
+        ).addTo(feature_group_b8e5005657f34d75a1531e88891a0740);
+        
+    
+            ant_path_9c3fe3d71d7b297c19d5cb7ac7201959.bindTooltip(
+                `<div>
+                     Flow: 54 km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a0754f0466274e014c27eae6c20649d6 = L.circleMarker(
+                [34.0522, -118.2437],
+                {"bubblingMouseEvents": true, "color": "#FF8C00", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF8C00", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.33288287465668, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b8e5005657f34d75a1531e88891a0740);
+        
+    
+        var popup_f322cc5072060c75678e8c26b42e3f06 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_bc15b06dc07cf5c1a2f2cb998e358f0b = $(`<div id="html_bc15b06dc07cf5c1a2f2cb998e358f0b" style="width: 100.0%; height: 100.0%;">             <div style='font-family:sans-serif; width: 150px;'>                 <h5 style='margin:5px 0; border-bottom:1px solid #FF8C00'><b>LA Metro</b></h5>                 <b>Type:</b> Demand Node<br>                 <b>Vol:</b> 90k units<br>                 <b>Hub:</b> ONT9 (SoCal)             </div>         </div>`)[0];
+                popup_f322cc5072060c75678e8c26b42e3f06.setContent(html_bc15b06dc07cf5c1a2f2cb998e358f0b);
+            
+        
+
+        circle_marker_a0754f0466274e014c27eae6c20649d6.bindPopup(popup_f322cc5072060c75678e8c26b42e3f06)
+        ;
+
+        
+    
+    
+            circle_marker_a0754f0466274e014c27eae6c20649d6.bindTooltip(
+                `<div>
+                     <b>LA Metro</b><br>Vol: 90k
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_b8e5005657f34d75a1531e88891a0740.addTo(map_607a6620439973f8460663a7718a2221);
+        
+    
+            var feature_group_2371ff33e5b235b7ad613184b39cac28 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            ant_path_b2b76a77f48361f0e0a298668140315a = L.polyline.antPath(
+              [[32.9, -97.0], [32.7767, -96.797]],
+              {
+  "stroke": true,
+  "color": "#DC143C",
+  "weight": 3,
+  "opacity": 0.5,
+  "lineCap": "round",
+  "lineJoin": "round",
+  "dashArray": [
+15,
+30,
+],
+  "dashOffset": null,
+  "fill": false,
+  "fillColor": "#DC143C",
+  "fillOpacity": 0.2,
+  "fillRule": "evenodd",
+  "bubblingMouseEvents": true,
+  "smoothFactor": 1.0,
+  "noClip": false,
+  "paused": false,
+  "reverse": false,
+  "hardwareAcceleration": false,
+  "delay": 800,
+  "pulseColor": "#FFFFFF",
+}
+        ).addTo(feature_group_2371ff33e5b235b7ad613184b39cac28);
+        
+    
+            ant_path_b2b76a77f48361f0e0a298668140315a.bindTooltip(
+                `<div>
+                     Flow: 23 km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_786e8fdd084132dbcf8ce0c6fe4dde1a = L.circleMarker(
+                [32.7767, -96.797],
+                {"bubblingMouseEvents": true, "color": "#DC143C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.480935072788114, "stroke": true, "weight": 3}
+            ).addTo(feature_group_2371ff33e5b235b7ad613184b39cac28);
+        
+    
+        var popup_47f16f9c37d5b0b639c340fa9b3ab81d = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_912a04a1149604d178de83935dde724b = $(`<div id="html_912a04a1149604d178de83935dde724b" style="width: 100.0%; height: 100.0%;">             <div style='font-family:sans-serif; width: 150px;'>                 <h5 style='margin:5px 0; border-bottom:1px solid #DC143C'><b>Dallas Metro</b></h5>                 <b>Type:</b> Demand Node<br>                 <b>Vol:</b> 65k units<br>                 <b>Hub:</b> DFW6 (Dallas)             </div>         </div>`)[0];
+                popup_47f16f9c37d5b0b639c340fa9b3ab81d.setContent(html_912a04a1149604d178de83935dde724b);
+            
+        
+
+        circle_marker_786e8fdd084132dbcf8ce0c6fe4dde1a.bindPopup(popup_47f16f9c37d5b0b639c340fa9b3ab81d)
+        ;
+
+        
+    
+    
+            circle_marker_786e8fdd084132dbcf8ce0c6fe4dde1a.bindTooltip(
+                `<div>
+                     <b>Dallas Metro</b><br>Vol: 65k
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            ant_path_883d7362e7acf40a3e441a29ed1b213b = L.polyline.antPath(
+              [[32.9, -97.0], [29.7604, -95.3698]],
+              {
+  "stroke": true,
+  "color": "#DC143C",
+  "weight": 3,
+  "opacity": 0.5,
+  "lineCap": "round",
+  "lineJoin": "round",
+  "dashArray": [
+15,
+30,
+],
+  "dashOffset": null,
+  "fill": false,
+  "fillColor": "#DC143C",
+  "fillOpacity": 0.2,
+  "fillRule": "evenodd",
+  "bubblingMouseEvents": true,
+  "smoothFactor": 1.0,
+  "noClip": false,
+  "paused": false,
+  "reverse": false,
+  "hardwareAcceleration": false,
+  "delay": 800,
+  "pulseColor": "#FFFFFF",
+}
+        ).addTo(feature_group_2371ff33e5b235b7ad613184b39cac28);
+        
+    
+            ant_path_883d7362e7acf40a3e441a29ed1b213b.bindTooltip(
+                `<div>
+                     Flow: 381 km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_85c5819b9a18ac7c68f1c4af97542707 = L.circleMarker(
+                [29.7604, -95.3698],
+                {"bubblingMouseEvents": true, "color": "#DC143C", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#DC143C", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.069756700139285, "stroke": true, "weight": 3}
+            ).addTo(feature_group_2371ff33e5b235b7ad613184b39cac28);
+        
+    
+        var popup_e8b0a254d2eda41728806283d238929c = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_6446279621be16979b0fcaa59ebb661d = $(`<div id="html_6446279621be16979b0fcaa59ebb661d" style="width: 100.0%; height: 100.0%;">             <div style='font-family:sans-serif; width: 150px;'>                 <h5 style='margin:5px 0; border-bottom:1px solid #DC143C'><b>Houston Metro</b></h5>                 <b>Type:</b> Demand Node<br>                 <b>Vol:</b> 60k units<br>                 <b>Hub:</b> DFW6 (Dallas)             </div>         </div>`)[0];
+                popup_e8b0a254d2eda41728806283d238929c.setContent(html_6446279621be16979b0fcaa59ebb661d);
+            
+        
+
+        circle_marker_85c5819b9a18ac7c68f1c4af97542707.bindPopup(popup_e8b0a254d2eda41728806283d238929c)
+        ;
+
+        
+    
+    
+            circle_marker_85c5819b9a18ac7c68f1c4af97542707.bindTooltip(
+                `<div>
+                     <b>Houston Metro</b><br>Vol: 60k
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_2371ff33e5b235b7ad613184b39cac28.addTo(map_607a6620439973f8460663a7718a2221);
+        
+    
+            var feature_group_3dc6219699661aed8be0cc684079ae12 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            ant_path_dbdbbc72f368446a4e90d1c5d1fbf245 = L.polyline.antPath(
+              [[38.2, -85.7], [41.8781, -87.6298]],
+              {
+  "stroke": true,
+  "color": "#228B22",
+  "weight": 3,
+  "opacity": 0.5,
+  "lineCap": "round",
+  "lineJoin": "round",
+  "dashArray": [
+15,
+30,
+],
+  "dashOffset": null,
+  "fill": false,
+  "fillColor": "#228B22",
+  "fillOpacity": 0.2,
+  "fillRule": "evenodd",
+  "bubblingMouseEvents": true,
+  "smoothFactor": 1.0,
+  "noClip": false,
+  "paused": false,
+  "reverse": false,
+  "hardwareAcceleration": false,
+  "delay": 800,
+  "pulseColor": "#FFFFFF",
+}
+        ).addTo(feature_group_3dc6219699661aed8be0cc684079ae12);
+        
+    
+            ant_path_dbdbbc72f368446a4e90d1c5d1fbf245.bindTooltip(
+                `<div>
+                     Flow: 440 km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3e0fddcda4ebbe2163243e345caccf41 = L.circleMarker(
+                [41.8781, -87.6298],
+                {"bubblingMouseEvents": true, "color": "#228B22", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#228B22", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.258330249197703, "stroke": true, "weight": 3}
+            ).addTo(feature_group_3dc6219699661aed8be0cc684079ae12);
+        
+    
+        var popup_cd7c608e982833c8c1ff85674f936379 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_b9be8030852aa75a6d0a26d4d5dff911 = $(`<div id="html_b9be8030852aa75a6d0a26d4d5dff911" style="width: 100.0%; height: 100.0%;">             <div style='font-family:sans-serif; width: 150px;'>                 <h5 style='margin:5px 0; border-bottom:1px solid #228B22'><b>Chicago Metro</b></h5>                 <b>Type:</b> Demand Node<br>                 <b>Vol:</b> 75k units<br>                 <b>Hub:</b> SDF2 (Louisville)             </div>         </div>`)[0];
+                popup_cd7c608e982833c8c1ff85674f936379.setContent(html_b9be8030852aa75a6d0a26d4d5dff911);
+            
+        
+
+        circle_marker_3e0fddcda4ebbe2163243e345caccf41.bindPopup(popup_cd7c608e982833c8c1ff85674f936379)
+        ;
+
+        
+    
+    
+            circle_marker_3e0fddcda4ebbe2163243e345caccf41.bindTooltip(
+                `<div>
+                     <b>Chicago Metro</b><br>Vol: 75k
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            ant_path_dd2fd6f20e94d52f961ad521653cd66f = L.polyline.antPath(
+              [[38.2, -85.7], [33.749, -84.388]],
+              {
+  "stroke": true,
+  "color": "#228B22",
+  "weight": 3,
+  "opacity": 0.5,
+  "lineCap": "round",
+  "lineJoin": "round",
+  "dashArray": [
+15,
+30,
+],
+  "dashOffset": null,
+  "fill": false,
+  "fillColor": "#228B22",
+  "fillOpacity": 0.2,
+  "fillRule": "evenodd",
+  "bubblingMouseEvents": true,
+  "smoothFactor": 1.0,
+  "noClip": false,
+  "paused": false,
+  "reverse": false,
+  "hardwareAcceleration": false,
+  "delay": 800,
+  "pulseColor": "#FFFFFF",
+}
+        ).addTo(feature_group_3dc6219699661aed8be0cc684079ae12);
+        
+    
+            ant_path_dd2fd6f20e94d52f961ad521653cd66f.bindTooltip(
+                `<div>
+                     Flow: 508 km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_cc7fe81010d86cccd378c33e57bc3f31 = L.circleMarker(
+                [33.749, -84.388],
+                {"bubblingMouseEvents": true, "color": "#228B22", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#228B22", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.19238815542512, "stroke": true, "weight": 3}
+            ).addTo(feature_group_3dc6219699661aed8be0cc684079ae12);
+        
+    
+        var popup_4de11fa5cb3b0f84c28d601b9980645b = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_cf35ec66d7da139f1fa62022240a1736 = $(`<div id="html_cf35ec66d7da139f1fa62022240a1736" style="width: 100.0%; height: 100.0%;">             <div style='font-family:sans-serif; width: 150px;'>                 <h5 style='margin:5px 0; border-bottom:1px solid #228B22'><b>Atlanta Metro</b></h5>                 <b>Type:</b> Demand Node<br>                 <b>Vol:</b> 50k units<br>                 <b>Hub:</b> SDF2 (Louisville)             </div>         </div>`)[0];
+                popup_4de11fa5cb3b0f84c28d601b9980645b.setContent(html_cf35ec66d7da139f1fa62022240a1736);
+            
+        
+
+        circle_marker_cc7fe81010d86cccd378c33e57bc3f31.bindPopup(popup_4de11fa5cb3b0f84c28d601b9980645b)
+        ;
+
+        
+    
+    
+            circle_marker_cc7fe81010d86cccd378c33e57bc3f31.bindTooltip(
+                `<div>
+                     <b>Atlanta Metro</b><br>Vol: 50k
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_3dc6219699661aed8be0cc684079ae12.addTo(map_607a6620439973f8460663a7718a2221);
+        
+    
+            var feature_group_4b94a7cf85354357dc2d1f78a70ad520 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            ant_path_eeae63de5e50d6364f7e0325d3fb23c4 = L.polyline.antPath(
+              [[40.5, -74.5], [40.7128, -74.006]],
+              {
+  "stroke": true,
+  "color": "#0000CD",
+  "weight": 3,
+  "opacity": 0.5,
+  "lineCap": "round",
+  "lineJoin": "round",
+  "dashArray": [
+15,
+30,
+],
+  "dashOffset": null,
+  "fill": false,
+  "fillColor": "#0000CD",
+  "fillOpacity": 0.2,
+  "fillRule": "evenodd",
+  "bubblingMouseEvents": true,
+  "smoothFactor": 1.0,
+  "noClip": false,
+  "paused": false,
+  "reverse": false,
+  "hardwareAcceleration": false,
+  "delay": 800,
+  "pulseColor": "#FFFFFF",
+}
+        ).addTo(feature_group_4b94a7cf85354357dc2d1f78a70ad520);
+        
+    
+            ant_path_eeae63de5e50d6364f7e0325d3fb23c4.bindTooltip(
+                `<div>
+                     Flow: 47 km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3458c39aa46f5c510aad787d8eb63283 = L.circleMarker(
+                [40.7128, -74.006],
+                {"bubblingMouseEvents": true, "color": "#0000CD", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0000CD", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.627553482998907, "stroke": true, "weight": 3}
+            ).addTo(feature_group_4b94a7cf85354357dc2d1f78a70ad520);
+        
+    
+        var popup_f3bf79074bebd73d53569ed6e1af7965 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_33964247c9dd01b6d00859ffffa4024f = $(`<div id="html_33964247c9dd01b6d00859ffffa4024f" style="width: 100.0%; height: 100.0%;">             <div style='font-family:sans-serif; width: 150px;'>                 <h5 style='margin:5px 0; border-bottom:1px solid #0000CD'><b>NYC Metro</b></h5>                 <b>Type:</b> Demand Node<br>                 <b>Vol:</b> 80k units<br>                 <b>Hub:</b> EWR4 (NJ/NY)             </div>         </div>`)[0];
+                popup_f3bf79074bebd73d53569ed6e1af7965.setContent(html_33964247c9dd01b6d00859ffffa4024f);
+            
+        
+
+        circle_marker_3458c39aa46f5c510aad787d8eb63283.bindPopup(popup_f3bf79074bebd73d53569ed6e1af7965)
+        ;
+
+        
+    
+    
+            circle_marker_3458c39aa46f5c510aad787d8eb63283.bindTooltip(
+                `<div>
+                     <b>NYC Metro</b><br>Vol: 80k
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            ant_path_1a16842da1206046ad585e35d7440b1d = L.polyline.antPath(
+              [[40.5, -74.5], [39.9526, -75.1652]],
+              {
+  "stroke": true,
+  "color": "#0000CD",
+  "weight": 3,
+  "opacity": 0.5,
+  "lineCap": "round",
+  "lineJoin": "round",
+  "dashArray": [
+15,
+30,
+],
+  "dashOffset": null,
+  "fill": false,
+  "fillColor": "#0000CD",
+  "fillOpacity": 0.2,
+  "fillRule": "evenodd",
+  "bubblingMouseEvents": true,
+  "smoothFactor": 1.0,
+  "noClip": false,
+  "paused": false,
+  "reverse": false,
+  "hardwareAcceleration": false,
+  "delay": 800,
+  "pulseColor": "#FFFFFF",
+}
+        ).addTo(feature_group_4b94a7cf85354357dc2d1f78a70ad520);
+        
+    
+            ant_path_1a16842da1206046ad585e35d7440b1d.bindTooltip(
+                `<div>
+                     Flow: 83 km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_70f6a0c3fb2af0332348f4ba578e79d5 = L.circleMarker(
+                [39.9526, -75.1652],
+                {"bubblingMouseEvents": true, "color": "#0000CD", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0000CD", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.069756700139285, "stroke": true, "weight": 3}
+            ).addTo(feature_group_4b94a7cf85354357dc2d1f78a70ad520);
+        
+    
+        var popup_c866b8ccdecd4d84f72459ae9b113cf4 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_a0efd7d4b55a85cf50faf884cd5ab036 = $(`<div id="html_a0efd7d4b55a85cf50faf884cd5ab036" style="width: 100.0%; height: 100.0%;">             <div style='font-family:sans-serif; width: 150px;'>                 <h5 style='margin:5px 0; border-bottom:1px solid #0000CD'><b>Philadelphia Metro</b></h5>                 <b>Type:</b> Demand Node<br>                 <b>Vol:</b> 60k units<br>                 <b>Hub:</b> EWR4 (NJ/NY)             </div>         </div>`)[0];
+                popup_c866b8ccdecd4d84f72459ae9b113cf4.setContent(html_a0efd7d4b55a85cf50faf884cd5ab036);
+            
+        
+
+        circle_marker_70f6a0c3fb2af0332348f4ba578e79d5.bindPopup(popup_c866b8ccdecd4d84f72459ae9b113cf4)
+        ;
+
+        
+    
+    
+            circle_marker_70f6a0c3fb2af0332348f4ba578e79d5.bindTooltip(
+                `<div>
+                     <b>Philadelphia Metro</b><br>Vol: 60k
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            ant_path_4c6800b42490d17318f7c90ce615d1bb = L.polyline.antPath(
+              [[40.5, -74.5], [42.3601, -71.0589]],
+              {
+  "stroke": true,
+  "color": "#0000CD",
+  "weight": 3,
+  "opacity": 0.5,
+  "lineCap": "round",
+  "lineJoin": "round",
+  "dashArray": [
+15,
+30,
+],
+  "dashOffset": null,
+  "fill": false,
+  "fillColor": "#0000CD",
+  "fillOpacity": 0.2,
+  "fillRule": "evenodd",
+  "bubblingMouseEvents": true,
+  "smoothFactor": 1.0,
+  "noClip": false,
+  "paused": false,
+  "reverse": false,
+  "hardwareAcceleration": false,
+  "delay": 800,
+  "pulseColor": "#FFFFFF",
+}
+        ).addTo(feature_group_4b94a7cf85354357dc2d1f78a70ad520);
+        
+    
+            ant_path_4c6800b42490d17318f7c90ce615d1bb.bindTooltip(
+                `<div>
+                     Flow: 353 km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_25a4132506c9dbb7720d07a6c8162716 = L.circleMarker(
+                [42.3601, -71.0589],
+                {"bubblingMouseEvents": true, "color": "#0000CD", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0000CD", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.19238815542512, "stroke": true, "weight": 3}
+            ).addTo(feature_group_4b94a7cf85354357dc2d1f78a70ad520);
+        
+    
+        var popup_e33b5332cdf2bf9f92611f48b202fff1 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_14ceb0d2107ef3193b999f926ba1fd1b = $(`<div id="html_14ceb0d2107ef3193b999f926ba1fd1b" style="width: 100.0%; height: 100.0%;">             <div style='font-family:sans-serif; width: 150px;'>                 <h5 style='margin:5px 0; border-bottom:1px solid #0000CD'><b>Boston Metro</b></h5>                 <b>Type:</b> Demand Node<br>                 <b>Vol:</b> 50k units<br>                 <b>Hub:</b> EWR4 (NJ/NY)             </div>         </div>`)[0];
+                popup_e33b5332cdf2bf9f92611f48b202fff1.setContent(html_14ceb0d2107ef3193b999f926ba1fd1b);
+            
+        
+
+        circle_marker_25a4132506c9dbb7720d07a6c8162716.bindPopup(popup_e33b5332cdf2bf9f92611f48b202fff1)
+        ;
+
+        
+    
+    
+            circle_marker_25a4132506c9dbb7720d07a6c8162716.bindTooltip(
+                `<div>
+                     <b>Boston Metro</b><br>Vol: 50k
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            ant_path_303daf442b23b1410999b922efb76402 = L.polyline.antPath(
+              [[40.5, -74.5], [38.9072, -77.0369]],
+              {
+  "stroke": true,
+  "color": "#0000CD",
+  "weight": 3,
+  "opacity": 0.5,
+  "lineCap": "round",
+  "lineJoin": "round",
+  "dashArray": [
+15,
+30,
+],
+  "dashOffset": null,
+  "fill": false,
+  "fillColor": "#0000CD",
+  "fillOpacity": 0.2,
+  "fillRule": "evenodd",
+  "bubblingMouseEvents": true,
+  "smoothFactor": 1.0,
+  "noClip": false,
+  "paused": false,
+  "reverse": false,
+  "hardwareAcceleration": false,
+  "delay": 800,
+  "pulseColor": "#FFFFFF",
+}
+        ).addTo(feature_group_4b94a7cf85354357dc2d1f78a70ad520);
+        
+    
+            ant_path_303daf442b23b1410999b922efb76402.bindTooltip(
+                `<div>
+                     Flow: 280 km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f7f212662fc18db988005a455e5e1145 = L.circleMarker(
+                [38.9072, -77.0369],
+                {"bubblingMouseEvents": true, "color": "#0000CD", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0000CD", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.641058033224363, "stroke": true, "weight": 3}
+            ).addTo(feature_group_4b94a7cf85354357dc2d1f78a70ad520);
+        
+    
+        var popup_68bff65821bcdd6ae8eb656318fe08d4 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_1033b5ca6bc01a1cdfbae942f57cae69 = $(`<div id="html_1033b5ca6bc01a1cdfbae942f57cae69" style="width: 100.0%; height: 100.0%;">             <div style='font-family:sans-serif; width: 150px;'>                 <h5 style='margin:5px 0; border-bottom:1px solid #0000CD'><b>DC Metro</b></h5>                 <b>Type:</b> Demand Node<br>                 <b>Vol:</b> 55k units<br>                 <b>Hub:</b> EWR4 (NJ/NY)             </div>         </div>`)[0];
+                popup_68bff65821bcdd6ae8eb656318fe08d4.setContent(html_1033b5ca6bc01a1cdfbae942f57cae69);
+            
+        
+
+        circle_marker_f7f212662fc18db988005a455e5e1145.bindPopup(popup_68bff65821bcdd6ae8eb656318fe08d4)
+        ;
+
+        
+    
+    
+            circle_marker_f7f212662fc18db988005a455e5e1145.bindTooltip(
+                `<div>
+                     <b>DC Metro</b><br>Vol: 55k
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_4b94a7cf85354357dc2d1f78a70ad520.addTo(map_607a6620439973f8460663a7718a2221);
+        
+    
+            var feature_group_a1f5eee71536e6e8c01446e0daa97690 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            ant_path_1b3b10adbe138b9d098cd2fe54b31691 = L.polyline.antPath(
+              [[27.9, -82.4], [25.7617, -80.1918]],
+              {
+  "stroke": true,
+  "color": "#800080",
+  "weight": 3,
+  "opacity": 0.5,
+  "lineCap": "round",
+  "lineJoin": "round",
+  "dashArray": [
+15,
+30,
+],
+  "dashOffset": null,
+  "fill": false,
+  "fillColor": "#800080",
+  "fillOpacity": 0.2,
+  "fillRule": "evenodd",
+  "bubblingMouseEvents": true,
+  "smoothFactor": 1.0,
+  "noClip": false,
+  "paused": false,
+  "reverse": false,
+  "hardwareAcceleration": false,
+  "delay": 800,
+  "pulseColor": "#FFFFFF",
+}
+        ).addTo(feature_group_a1f5eee71536e6e8c01446e0daa97690);
+        
+    
+            ant_path_1b3b10adbe138b9d098cd2fe54b31691.bindTooltip(
+                `<div>
+                     Flow: 323 km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2e1376aea6af3ae19dffa9f95e1c9d15 = L.circleMarker(
+                [25.7617, -80.1918],
+                {"bubblingMouseEvents": true, "color": "#800080", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#800080", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.720665112249181, "stroke": true, "weight": 3}
+            ).addTo(feature_group_a1f5eee71536e6e8c01446e0daa97690);
+        
+    
+        var popup_edea069ba2343c6862c5b09a52abb6fd = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_3cc67c7ad4ce5020b96d1af6910e083b = $(`<div id="html_3cc67c7ad4ce5020b96d1af6910e083b" style="width: 100.0%; height: 100.0%;">             <div style='font-family:sans-serif; width: 150px;'>                 <h5 style='margin:5px 0; border-bottom:1px solid #800080'><b>Miami Metro</b></h5>                 <b>Type:</b> Demand Node<br>                 <b>Vol:</b> 45k units<br>                 <b>Hub:</b> TPA2 (Tampa)             </div>         </div>`)[0];
+                popup_edea069ba2343c6862c5b09a52abb6fd.setContent(html_3cc67c7ad4ce5020b96d1af6910e083b);
+            
+        
+
+        circle_marker_2e1376aea6af3ae19dffa9f95e1c9d15.bindPopup(popup_edea069ba2343c6862c5b09a52abb6fd)
+        ;
+
+        
+    
+    
+            circle_marker_2e1376aea6af3ae19dffa9f95e1c9d15.bindTooltip(
+                `<div>
+                     <b>Miami Metro</b><br>Vol: 45k
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_a1f5eee71536e6e8c01446e0daa97690.addTo(map_607a6620439973f8460663a7718a2221);
+        
+    
+            var layer_control_755d6857e90356f7475593ff51677e8b_layers = {
+                base_layers : {
+                    "cartodbpositron" : tile_layer_b9f1c51c06c16af412094ca485e15f1d,
+                },
+                overlays :  {
+                    "Distribution Centers" : feature_group_8e14527ca99b6e723f07cbaca2e13b90,
+                    "Region: ONT9 (SoCal)" : feature_group_b8e5005657f34d75a1531e88891a0740,
+                    "Region: DFW6 (Dallas)" : feature_group_2371ff33e5b235b7ad613184b39cac28,
+                    "Region: SDF2 (Louisville)" : feature_group_3dc6219699661aed8be0cc684079ae12,
+                    "Region: EWR4 (NJ/NY)" : feature_group_4b94a7cf85354357dc2d1f78a70ad520,
+                    "Region: TPA2 (Tampa)" : feature_group_a1f5eee71536e6e8c01446e0daa97690,
+                },
+            };
+            let layer_control_755d6857e90356f7475593ff51677e8b = L.control.layers(
+                layer_control_755d6857e90356f7475593ff51677e8b_layers.base_layers,
+                layer_control_755d6857e90356f7475593ff51677e8b_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": false,
+  "autoZIndex": true,
+}
+            ).addTo(map_607a6620439973f8460663a7718a2221);
+
+        
+</script>
+</html>
