@@ -1,6 +1,6 @@
 # 📦 Amazon Logistics Digital Twin: Network Optimization
 
-### 🚀 [View Live Interactive Map](YOUR_HTMLPREVIEW_LINK_HERE)
+### 🚀 [View Live Interactive Map](file:///D:/DOWNLOAD/amazon_network_perfected_v2%20(1).html)
 *Dynamic geospatial analysis of the 5-node hub-and-spoke network. (Generated via Python/Folium)*
 
 ![Network Flow Animation](network-flow.gif)
@@ -50,3 +50,23 @@ for cust in customers:
         weight=2.5,
         tooltip=f"Route Efficiency: {cust['efficiency_score']}"
     ).add_to(map_layer)
+```
+
+## ⚡ Development Workflow (AI-Augmented)
+This project utilizes a modern, AI-augmented workflow to maximize development velocity.
+
+* **Architecture & Strategy:** The network design, KPI selection, and economic constraints were defined by the author.
+* **Code Acceleration:** Large Language Models (LLMs) were utilized to generate Folium syntax boilerplate and optimize the HTML injection for the dashboard HUD.
+* **Validation:** All code logic was reviewed, tested, and validated against the source Excel datasets to ensure 100% accuracy.
+
+## 📂 Project Structure
+```bash
+├── data
+│   ├── Network_Model.xlsx       # Source data for transit times
+│   └── coordinates.csv          # Geocoded city locations
+├── src
+│   ├── network_optimizer.py     # Main Python logic
+│   └── map_generator.ipynb      # Jupyter Notebook for visualization
+├── output
+│   └── amazon_network_perfected_v2.html # Interactive map (Result)
+└── README.md
