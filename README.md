@@ -68,5 +68,5 @@ This project utilizes a modern, AI-augmented workflow to maximize development ve
 │   ├── network_optimizer.py     # Main Python logic
 │   └── map_generator.ipynb      # Jupyter Notebook for visualization
 ├── output
-│   └── amazon_network_perfected_v2.html # Interactive map (Result)
+│   └── map.html # Interactive map (Result)
 └── README.md
