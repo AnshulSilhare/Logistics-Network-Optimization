@@ -15,7 +15,7 @@ This project analyzes the optimal distribution network for a retail client requi
 ### 1. Network Configuration (The "Lean 5-Node" Strategy)
 *Visualizing the strategic placement of Redlands, Robbinsville, Louisville, Coppell, and Lakeland.*
 
-![Network Map](YOUR_MAP_IMAGE_FILENAME_HERE.jpg)
+![Network Map](Networkv2.gif)
 
 ### 2. Service Level Validation
 *Breakdown of transit days from regional hubs to major metro areas.*
